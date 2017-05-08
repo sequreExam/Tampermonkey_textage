@@ -3,10 +3,10 @@
     // @name         Textage
     // @namespace    http://tampermonkey.net/
     // @version      0.1
-    // @description Tampermonkey scripts jumps over the crap codes.
+    // @description  Tampermonkey scripts jumps over the crap codes.
     // @author       sequre
     // @match        http://textage.cc/score/*
-    // @grant         none
+    // @grant        none
     // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js
     // ==/UserScript==
 
