@@ -1,4 +1,6 @@
 # Tampermonkey_textage
+譜面をひとつなぎにします。
+
     // ==UserScript==
     // @name         Textage
     // @namespace    http://tampermonkey.net/
@@ -7,32 +9,24 @@
     // @author       sequre
     // @match        http://textage.cc/score/*
     // @grant        none
-    // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js
     // ==/UserScript==
+    "use strict";
 
-    (function()
+    (() =>
     {
-        'use strict';
+        const parentTr = document.querySelectorAll("body > table > tbody > tr")[0];
+        const childTd = document.querySelectorAll("body > table > tbody > tr > td");
+        const replaceTd = document.createElement("td");
+        let childTable;
+        let i, j;
 
-        // Your code here...
-        var parentTable = $("body > table > tbody > tr");
-        var childTd = $("body > table > tbody > tr > td");
-        var childTable = $();
-        var replaceArea = $("body > table > tbody > tr > td > img");
-        var DOM = $();
-        var i, j;
-
-        console.log(childTd.length); // 16
         for(i = 0; i < childTd.length; i++)
         {
-            childTable = childTd.eq(i).find("table");
-            console.log(childTable.length); // 3, 4, 4, ... , 5
+            childTable = childTd[i].getElementsByTagName("table");
+            if(childTable.length < 1)continue;
             for(j = childTable.length - 1; j >= 0 ; j--)
             {
-                replaceArea.prepend($(childTable).eq(j));
+                parentTr.parentNode.insertBefore(childTable[j], parentTr.parentNode.firstElementChild);
             }
         }
-
-        DOM = replaceArea.wrapInner("<td />").wrapInner("<tr />").children();
-        DOM.replaceAll(parentTable);
     })();
